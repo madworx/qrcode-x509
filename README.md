@@ -2,6 +2,10 @@
 
 This project demonstrates generating, encoding, and validating X.509 certificates using QR codes.
 
+<p align="right">
+  <a href="sample/"><img src="sample/123456789012-qr.png" alt="Sample QR Code" width="180" /></a>
+</p>
+
 ## Features
 
 - Minimal ECDSA certificates (P-256)
