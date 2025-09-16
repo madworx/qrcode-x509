@@ -1,6 +1,6 @@
-# QR Code Certificate Demo
+# QR Code Certificate Demo (DER Format)
 
-This project demonstrates generating, encoding, and validating X.509 certificates using QR codes.
+This project demonstrates generating, encoding, and validating X.509 certificates using QR codes with DER encoding.
 
 <p align="right">
   <a href="sample/"><img src="sample/123456789012-qr.png" alt="Sample QR Code" width="180" /></a>
@@ -8,8 +8,8 @@ This project demonstrates generating, encoding, and validating X.509 certificate
 
 ## Features
 
-- Minimal ECDSA certificates (P-256)
-- PEM certificates embedded directly in QR codes
+- Minimal ECDSA certificates (P-256) in DER format
+- Raw binary DER certificates embedded directly in QR codes
 - Validation using a custom CA
 
 **Note:** The QR codes contain only the public certificate for validation purposes. The corresponding private keys are stored separately in `.pem` files and are **not** included in the QR codes.
@@ -32,7 +32,7 @@ Or, follow the steps below manually:
    ```
 2. **Create a QR code from the certificate:**
    ```sh
-   python3 qr_generator.py output/123456789012-cert.pem
+   python3 qr_generator.py output/123456789012-cert.der
    ```
 3. **Validate the certificate from the QR code:**
    ```sh
@@ -47,12 +47,12 @@ Generating CA private key...
 Generating CA certificate...
 Certificate request self-signature ok
 subject=CN=John Smith
-Certificate generated: output/123456789012-cert.pem
+Certificate generated: output/123456789012-cert.der
         Serial Number: 123456789012 (0x1cbe991a14)
             Not Before: Sep 16 08:53:46 2025 GMT
             Not After : Sep 16 08:53:46 2026 GMT
         Subject: CN=John Smith
-Certificate size: 579 bytes
+Certificate size: 385 bytes (DER)
 
 
 Certificate details:
@@ -92,13 +92,13 @@ Certificate:
 
 Generating QR code from certificate...
 QR code saved to: output/123456789012-qr.png
-Certificate size: 579 bytes (PEM)
-QR version: 16
+Certificate size: 385 bytes (DER)
+QR version: 13
 
 
 Validating certificate in QR code...
 Scanning QR code from: output/123456789012-qr.png
-QR code decoded successfully (579 characters)
+QR code decoded successfully (385 bytes)
 [OK] Certificate signature VALID
 
 ==================================================
@@ -125,14 +125,14 @@ Overall: [OK] VALID
 A minimal Dockerfile is provided. Build and run:
 
 ```sh
-docker build -t qr-cert .
-docker run --rm -it qr-cert
+docker build -t qr-cert-der .
+docker run --rm -it qr-cert-der
 ```
 
 To persist generated certificates and QR codes, mount the `output` directory as a volume:
 
 ```sh
-docker run --rm -it -v "${PWD}/output:/app/output" qr-cert
+docker run --rm -it -v "${PWD}/output:/app/output" qr-cert-der
 ```
 
 ## License
